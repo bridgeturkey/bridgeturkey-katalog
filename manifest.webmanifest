@@ -1,0 +1,9 @@
+{
+  "name": "BridgeTurkey Firma Kataloğu",
+  "short_name": "BridgeTurkey",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f3f6fa",
+  "theme_color": "#12345a",
+  "icons": []
+}
