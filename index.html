@@ -13,19 +13,40 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:0 16px 28px
 @media(min-width:620px){.filters{grid-template-columns:2fr 1fr}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(min-width:900px){.cards{grid-template-columns:repeat(3,minmax(0,1fr))}}
 </style></head><body>
-<header><div class="wrap"><div class="top"><div class="brand">Bridge<span>Turkey</span></div><button class="lang" id="lang">EN</button></div><h1 id="headline">Türk firmalarını keşfedin</h1><p id="subtitle">Arayın, sektörlere göre filtreleyin ve firmalarla bağlantı kurun.</p></div></header>
+<header><div class="wrap"><div class="top"><div class="brand">Bridge<span>Turkey</span></div><button class="lang" id="lang" aria-label="Change language">EN</button></div><h1 id="headline">Türk firmalarını keşfedin</h1><p id="subtitle">Arayın, sektörlere göre filtreleyin ve firmalarla bağlantı kurun.</p></div></header>
 <main class="wrap"><div class="filters"><input id="q" type="search" placeholder="Firma, ürün veya şehir ara…"><select id="sector"><option value="">Tüm sektörler</option></select></div><div class="count" id="count"></div><div class="cards" id="cards"></div></main>
 <footer><p id="footnote">Bu katalog BridgeTurkey sitesindeki firma listelerinden oluşturulmuş ilk taslaktır. Yayınlamadan önce firma bilgileri doğrulanmalıdır.</p><a href="https://bridgeturkey.rs/firme/" target="_blank" rel="noopener">BridgeTurkey web sitesi</a></footer>
 <script>
-const TR={headline:"Türk firmalarını keşfedin",subtitle:"Arayın, sektörlere göre filtreleyin ve firmalarla bağlantı kurun.",search:"Firma, ürün veya şehir ara…",all:"Tüm sektörler",count:n=>`${n} firma gösteriliyor`,location:"Konum",source:"Firma sayfası",review:"İletişim bilgileri doğrulanmalı.",footnote:"Bu katalog BridgeTurkey sitesindeki firma listelerinden oluşturulmuş ilk taslaktır. Yayınlamadan önce firma bilgileri doğrulanmalıdır.",empty:"Eşleşen firma bulunamadı.",call:"Ara",email:"E-posta",website:"Web sitesi",profile:"BridgeTurkey profili"};
-const EN={headline:"Discover Turkish companies",subtitle:"Search, filter by industry and connect with companies.",search:"Search company, product or city…",all:"All industries",count:n=>`Showing ${n} companies`,location:"Location",source:"Company page",review:"Contact details need verification.",footnote:"This is an initial draft based on company listings on BridgeTurkey. Please verify company details before publishing.",empty:"No matching companies found.",call:"Call",email:"Email",website:"Website",profile:"BridgeTurkey profile"};
+const LANGS = {
+tr: {
+headline:"Türk firmalarını keşfedin", subtitle:"Arayın, sektörlere göre filtreleyin ve firmalarla bağlantı kurun.",
+search:"Firma, ürün veya şehir ara…", all:"Tüm sektörler", count:n=>`${n} firma gösteriliyor`,
+review:"İletişim bilgileri doğrulanmalı.", footnote:"Bu katalog BridgeTurkey sitesindeki firma listelerinden oluşturulmuş ilk taslaktır. Yayınlamadan önce firma bilgileri doğrulanmalıdır.",
+empty:"Eşleşen firma bulunamadı.", call:"Ara", email:"E-posta", website:"Web sitesi", profile:"BridgeTurkey profili"
+},
+en: {
+headline:"Discover Turkish companies", subtitle:"Search, filter by industry and connect with companies.",
+search:"Search company, product or city…", all:"All industries", count:n=>`Showing ${n} companies`,
+review:"Contact details need verification.", footnote:"This is an initial draft based on company listings on BridgeTurkey. Please verify company details before publishing.",
+empty:"No matching companies found.", call:"Call", email:"Email", website:"Website", profile:"BridgeTurkey profile"
+},
+sr: {
+headline:"Otkrijte turske kompanije", subtitle:"Pretražujte kompanije, filtrirajte po delatnosti i povežite se sa njima.",
+search:"Pretražite kompaniju, proizvod ili grad…", all:"Sve delatnosti", count:n=>`Prikazano kompanija: ${n}`,
+review:"Potrebno je proveriti kontakt podatke.", footnote:"Ovaj katalog je početna verzija zasnovana na listama kompanija na sajtu BridgeTurkey. Proverite podatke pre objavljivanja.",
+empty:"Nema rezultata pretrage.", call:"Pozovi", email:"E-pošta", website:"Veb-sajt", profile:"BridgeTurkey profil"
+}
+};
+const LANG_ORDER=["tr","en","sr"];
 let lang="tr",firms=[];
 const $=id=>document.getElementById(id);
-fetch("firms.json").then(r=>r.json()).then(d=>{firms=d;populateSectors();render()}).catch(()=>{$("cards").innerHTML='<div class="empty">Could not load firms.json.</div>'});
-function tx(){return lang==="tr"?TR:EN}
-function populateSectors(){const vals=[...new Set(firms.map(f=>lang==="tr"?f.sector:f.sector_en))].sort();$("sector").innerHTML=`<option value="">${tx().all}</option>`+vals.map(v=>`<option>${esc(v)}</option>`).join("")}
+fetch("./firms.json").then(r=>{if(!r.ok)throw new Error("HTTP "+r.status);return r.json()}).then(d=>{if(!Array.isArray(d))throw new Error("Invalid firms.json");firms=d;populateSectors();render()}).catch(()=>{$("cards").innerHTML='<div class="empty">Could not load firms.json. Please refresh the page.</div>'});
+function tx(){return LANGS[lang]}
+function sectorName(f){if(lang==="tr")return f.sector;if(lang==="en")return f.sector_en||f.sector;return f.sector_sr||f.sector_en||f.sector}
+function populateSectors(){const vals=[...new Set(firms.map(sectorName))].sort();$("sector").innerHTML=`<option value="">${tx().all}</option>`+vals.map(v=>`<option>${esc(v)}</option>`).join("")}
 function esc(s){return String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function render(){const t=tx(),q=$("q").value.toLocaleLowerCase(lang==="tr"?"tr":"en"),s=$("sector").value;const arr=firms.filter(f=>(!s||(lang==="tr"?f.sector:f.sector_en)===s)&&[f.name,f.sector,f.sector_en,f.location].join(" ").toLocaleLowerCase(lang==="tr"?"tr":"en").includes(q));$("count").textContent=t.count(arr.length);$("cards").innerHTML=arr.length?arr.map(f=>`<article class="card"><div class="tag">${esc(lang==="tr"?f.sector:f.sector_en)}</div><h2>${esc(f.name)}</h2><div class="meta">📍 ${esc(f.location||"—")}</div><div class="actions">${f.phone?`<a href="tel:${esc(f.phone)}">${t.call}</a>`:""}${f.email?`<a href="mailto:${esc(f.email)}">${t.email}</a>`:""}${f.website?`<a href="${esc(f.website)}" target="_blank" rel="noopener">${t.website}</a>`:""}<a class="secondary" href="${esc(f.profile)}" target="_blank" rel="noopener">${t.profile}</a></div><div class="note">${t.review}</div></article>`).join(""):`<div class="empty">${t.empty}</div>`;$("headline").textContent=t.headline;$("subtitle").textContent=t.subtitle;$("q").placeholder=t.search;$("footnote").textContent=t.footnote}
-$("q").addEventListener("input",render);$("sector").addEventListener("change",render);$("lang").addEventListener("click",()=>{lang=lang==="tr"?"en":"tr";document.documentElement.lang=lang;$("lang").textContent=lang==="tr"?"EN":"TR";populateSectors();render()});
+function render(){const t=tx(),q=$("q").value.toLocaleLowerCase(lang==="tr"?"tr":lang==="sr"?"sr":"en"),s=$("sector").value;const arr=firms.filter(f=>(!s||sectorName(f)===s)&&[f.name,f.sector,f.sector_en,f.sector_sr,f.location].join(" ").toLocaleLowerCase(lang==="tr"?"tr":lang==="sr"?"sr":"en").includes(q));$("count").textContent=t.count(arr.length);$("cards").innerHTML=arr.length?arr.map(f=>`<article class="card"><div class="tag">${esc(sectorName(f))}</div><h2>${esc(f.name)}</h2><div class="meta">📍 ${esc(f.location||"—")}</div><div class="actions">${f.phone?`<a href="tel:${esc(f.phone)}">${t.call}</a>`:""}${f.email?`<a href="mailto:${esc(f.email)}">${t.email}</a>`:""}${f.website?`<a href="${esc(f.website)}" target="_blank" rel="noopener">${t.website}</a>`:""}<a class="secondary" href="${esc(f.profile)}" target="_blank" rel="noopener">${t.profile}</a></div><div class="note">${t.review}</div></article>`).join(""):`<div class="empty">${t.empty}</div>`;$("headline").textContent=t.headline;$("subtitle").textContent=t.subtitle;$("q").placeholder=t.search;$("footnote").textContent=t.footnote;document.documentElement.lang=lang}
+function nextLanguage(){lang=LANG_ORDER[(LANG_ORDER.indexOf(lang)+1)%LANG_ORDER.length];$("lang").textContent=lang==="tr"?"EN":lang==="en"?"SR":"TR";populateSectors();render()}
+$("q").addEventListener("input",render);$("sector").addEventListener("change",render);$("lang").addEventListener("click",nextLanguage);
 if("serviceWorker" in navigator && location.protocol.startsWith("http")) navigator.serviceWorker.register("sw.js").catch(()=>{});
 </script></body></html>
