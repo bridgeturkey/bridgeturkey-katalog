@@ -1,4 +1,4 @@
-const CACHE = 'bridgeturkey-catalog-v2';
+const CACHE = 'bridgeturkey-catalog-v4';
 const ASSETS = ['./', './index.html', './firms.json', './manifest.webmanifest'];
 
 self.addEventListener('install', event => {
