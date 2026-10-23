@@ -12,8 +12,8 @@
     "image": "https://bridgeturkey.rs/wp-content/uploads/2026/05/Rectangle-7.png"
   },
   {
-    "name": "Selvan",
-    "sector": "Mobilya ve ahşap ürünleri",
+    "name": "Selvan Food",
+    "sector": "Gıda",
     "sector_en": "Furniture and wood products",
     "location": "Mehmet Akif Ersoy Mah. 1. Oteyaka Mevkii 65, Kemalpaşa, İzmir, Türkiye",
     "phone": "+90 232 880 80 30",
@@ -25,7 +25,7 @@
   },
   {
     "name": "DALDA International",
-    "sector": "Diğer",
+    "sector": "Gıda",
     "sector_en": "Other",
     "location": "Aktarhüssam Mah. Hacı Yakup Sok. İlker İş Hanı No:32/304, Osmangazi, Bursa 16050, Türkiye",
     "phone": "+90 542 772 97 71",
