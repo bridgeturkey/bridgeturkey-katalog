@@ -34,7 +34,7 @@
     "profile": "https://bridgeturkey.rs/listing/dalda-international/",
     "note": "Telefon ve fotoğraf kullanıcı tarafından güncellendi.",
     "image": "https://bridgeturkey.rs/wp-content/uploads/2026/10/48d2290177ac4fe0a336c4c3729a0fe1-1200x293.avif"
-   },
+  },
   {
     "name": "TOFiN GIDA SANAYİ VE TİCARET LTD. ŞTİ.",
     "sector": "Gıda",
@@ -610,5 +610,18 @@
     "profile": "https://bridgeturkey.rs/listing/bellona-mobilya/",
     "note": "Profil bağlantısı kullanıcı tarafından sağlandı; adres ve iletişim bilgileri kaynak sayfadan doğrulanmalı.",
     "image": "https://bridgeturkey.rs/wp-content/uploads/2026/05/yeni-1200x674.jpg"
+  },
+  {
+    "name": "MN MINIBAR",
+    "sector": "Otel ekipmanları / minibar",
+    "sector_en": "Hotel equipment / minibars",
+    "sector_sr": "Hotelska oprema / mini-barovi",
+    "location": "Kayseri, Türkiye",
+    "phone": "+90 352 504 04 04",
+    "email": "info@mnminibar.com",
+    "website": "https://mnminibar.com/",
+    "profile": "",
+    "note": "Otel, ofis ve ticari kullanıma yönelik minibar üreticisi. İletişim bilgileri resmî şirket sitesinden alınmıştır.",
+    "image": ""
   }
 ]
