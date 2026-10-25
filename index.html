@@ -36,6 +36,9 @@ function esc(s){return String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&l
 function safeUrl(s){try{const u=new URL(s);return ["http:","https:"].includes(u.protocol)?u.href:""}catch{return ""}}
 function populateSectors(){const vals=[...new Set(firms.map(f=>lang==="tr"?f.sector:(lang==="en"?f.sector_en:(f.sector_sr||f.sector_en||f.sector))).filter(Boolean))].sort();$('sector').innerHTML=`<option value="">${tx().all}</option>`+vals.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join("")}
 function adSlot(position){
+ if(position==="bottom"){
+  return `<a class="enuygun-ad bottom-ad" href="https://eurowaylojistik.com/" target="_blank" rel="noopener noreferrer" aria-label="Euroway Lojistik web sitesini ziyaret et"><img src="euroway-banner3.png" alt="Euroway Lojistik — Türkiye’den Avrupa ve Balkanlara lojistik" loading="lazy"></a>`;
+ }
  const middle=position==="middle";
  if(middle){
   return `<a class="enuygun-ad" href="https://www.enuygun.com/" target="_blank" rel="noopener noreferrer" aria-label="ENUYGUN 2027 yaz tatili kampanyasını incele"><img src="enuygun-banner-2027.png" alt="ENUYGUN 2027 yaz tatili: uçak bileti, otel, otobüs ve araç kiralama. Hemen incele." loading="lazy"></a>`;
@@ -70,13 +73,9 @@ function render(){
      const card=`<article class="card">${photo}<div class="tag">${esc(lang==="tr"?f.sector:(lang==="en"?f.sector_en:(f.sector_sr||f.sector_en||f.sector))||"Diğer")}</div><h2>${esc(f.name)}</h2><div class="meta">📍 ${esc(f.location||"Konum bilgisi bekleniyor")}</div><div class="actions">${action(!!phone,phone?`tel:${phone}`:"",t.call)}${action(!!email,email?`mailto:${email}`:"",t.email)}${action(!!website,website,t.website)}</div>${profile?`<a class="profile-link" href="${esc(profile)}" target="_blank" rel="noopener">${t.profile}</a>`:`<span class="profile-link" style="opacity:.55">${t.profile}</span>`}</article>`;
      // Show ENUYGUN in only the first in-between banner position.
      // Keep every later in-between banner position as the generic sponsor slot.
-     // Keep the existing ad slots separate. The slot directly above Titiz Plastik becomes Euroway.
-     const nextIsTitiz = i+1<arr.length &&
-       String(arr[i+1].name || "").toLocaleLowerCase("tr").includes("titiz plastik");
+     // Keep the existing in-between ad slots unchanged.
      if ((i+1)%6===0 && i<arr.length-1) {
-       if (i===5) return card + adSlot("middle");
-       if (nextIsTitiz) return card + adSlot("euroway");
-       return card + adSlot("list");
+       return card + (i===5 ? adSlot("middle") : adSlot("list"));
      }
      return card;
    }).join("");
