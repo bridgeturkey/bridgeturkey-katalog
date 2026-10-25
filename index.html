@@ -12,6 +12,7 @@ main{padding:22px 16px 42px}.filters{display:grid;grid-template-columns:1fr;gap:
 .enuygun-ad{display:block;grid-column:1/-1;width:100%;min-width:0;margin:2px 0 14px;overflow:hidden;border-radius:15px;box-shadow:0 5px 18px #19365318;line-height:0;background:#fff}
 .enuygun-ad img{display:block;width:100%;height:auto;object-fit:contain}
 .enuygun-ad:focus-visible{outline:3px solid #12345a;outline-offset:3px}
+.banner3-euroway{display:block;grid-column:1/-1;width:100%;margin:2px 0 14px;border-radius:15px;overflow:hidden;box-shadow:0 5px 18px #19365318;text-decoration:none;line-height:0;background:#fff}.banner3-euroway img{display:block;width:100%;height:auto;object-fit:contain}.banner3-euroway:focus-visible{outline:3px solid #12345a;outline-offset:3px}
 @media(max-width:520px){.ad-slot{align-items:flex-start;flex-direction:column;gap:10px;padding:15px}.ad-cta{width:100%}.wtb-ad-image{border-radius:12px}}
 footer{text-align:center;color:var(--muted);font-size:.85rem;padding:0 16px 28px}footer a{color:var(--blue)}
 @media(min-width:620px){.filters{grid-template-columns:2fr 1fr}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.card{min-height:290px}}
@@ -48,6 +49,9 @@ function adSlot(position){
    <a class="ad-cta" href="https://wa.me/905321390958?text=Merhaba%20BridgeTurkey%2C%20katalogda%20reklam%20vermek%20istiyorum.%20Reklam%20alanlar%C4%B1%20ve%20fiyatlar%C4%B1%20hakk%C4%B1nda%20bilgi%20alabilir%20miyim%3F" target="_blank" rel="noopener noreferrer">Reklam Verin</a>
  </section>`;
 }
+function banner3Euroway(){
+ return `<a class="banner3-euroway" href="https://eurowaylojistik.com/" target="_blank" rel="noopener noreferrer" aria-label="Euroway Lojistik web sitesini ziyaret et"><img src="euroway-banner3.png" alt="Euroway Lojistik — Türkiye’den Avrupa ve Balkanlara lojistik. Nakliye hizmetlerini incele." loading="lazy"></a>`;
+}
 function render(){
  const t=tx(),q=$('q').value.toLocaleLowerCase(lang==="tr"?"tr":"en"),s=$('sector').value;
  const arr=firms.filter(f=>{
@@ -69,7 +73,9 @@ function render(){
      if ((i+1)%6===0 && i<arr.length-1) {
        return card + (i===5 ? adSlot("middle") : adSlot("list"));
      }
-     return card;
+     const isTitiz = String(f.name || "").toLocaleLowerCase("tr").includes("titiz plastik");
+      if (isTitiz) return banner3Euroway() + card;
+      return card;
    }).join("");
    $('cards').innerHTML=rendered+adSlot("bottom");
  }
