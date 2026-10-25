@@ -40,17 +40,7 @@ function adSlot(position){
  if(middle){
   return `<a class="enuygun-ad" href="https://www.enuygun.com/" target="_blank" rel="noopener noreferrer" aria-label="ENUYGUN 2027 yaz tatili kampanyasını incele"><img src="enuygun-banner-2027.png" alt="ENUYGUN 2027 yaz tatili: uçak bileti, otel, otobüs ve araç kiralama. Hemen incele." loading="lazy"></a>`;
  }
- const title="Reklam Alanı · Katalog sonu";
- const text="Markanızı Balkanlar'daki potansiyel iş ortaklarına tanıtın.";
- const aria="Katalog altı reklam alanı";
- return `<section class="ad-slot list-ad bottom-ad" aria-label="${aria}">
-   <div class="ad-copy"><p class="ad-kicker">Sponsorlu tanıtım · 750 TL / 7 gün</p>
-   <h2 class="ad-title">${title}</h2><p class="ad-text">${text}</p></div>
-   <a class="ad-cta" href="https://wa.me/905321390958?text=Merhaba%20BridgeTurkey%2C%20katalogda%20reklam%20vermek%20istiyorum.%20Reklam%20alanlar%C4%B1%20ve%20fiyatlar%C4%B1%20hakk%C4%B1nda%20bilgi%20alabilir%20miyim%3F" target="_blank" rel="noopener noreferrer">Reklam Verin</a>
- </section>`;
-}
-function banner3Euroway(){
- return `<a class="banner3-euroway" href="https://eurowaylojistik.com/" target="_blank" rel="noopener noreferrer" aria-label="Euroway Lojistik web sitesini ziyaret et"><img src="euroway-banner3.png" alt="Euroway Lojistik — Türkiye’den Avrupa ve Balkanlara lojistik. Nakliye hizmetlerini incele." loading="lazy"></a>`;
+ return `<a class="enuygun-ad bottom-ad" href="https://eurowaylojistik.com/" target="_blank" rel="noopener noreferrer" aria-label="Euroway Lojistik web sitesini ziyaret et"><img src="euroway-banner3.png" alt="Euroway Lojistik — Türkiye’den Avrupa ve Balkanlara lojistik" loading="lazy"></a>`;
 }
 function render(){
  const t=tx(),q=$('q').value.toLocaleLowerCase(lang==="tr"?"tr":"en"),s=$('sector').value;
@@ -68,17 +58,12 @@ function render(){
      const imageUrl=safeUrl(f.image);
      const photo=imageUrl?`<img class="company-photo" src="${esc(imageUrl)}" alt="${esc(f.name)} ürün veya fabrika fotoğrafı" loading="lazy" onerror="this.outerHTML='<div class=&quot;photo-placeholder&quot;>BRIDGETURKEY</div>'">`:`<div class="photo-placeholder" aria-hidden="true"></div>`;
      const card=`<article class="card">${photo}<div class="tag">${esc(lang==="tr"?f.sector:(lang==="en"?f.sector_en:(f.sector_sr||f.sector_en||f.sector))||"Diğer")}</div><h2>${esc(f.name)}</h2><div class="meta">📍 ${esc(f.location||"Konum bilgisi bekleniyor")}</div><div class="actions">${action(!!phone,phone?`tel:${phone}`:"",t.call)}${action(!!email,email?`mailto:${email}`:"",t.email)}${action(!!website,website,t.website)}</div>${profile?`<a class="profile-link" href="${esc(profile)}" target="_blank" rel="noopener">${t.profile}</a>`:`<span class="profile-link" style="opacity:.55">${t.profile}</span>`}</article>`;
-     // Banner 3 must appear immediately before Titiz Plastik, even if that
-     // company also falls on a sixth-card advertising boundary.
-     const isTitiz = String(f.name || "").toLocaleLowerCase("tr").includes("titiz plastik");
-     const cardWithBanner3 = isTitiz ? banner3Euroway() + card : card;
-
      // Show ENUYGUN in only the first in-between banner position.
      // Keep every later in-between banner position as the generic sponsor slot.
      if ((i+1)%6===0 && i<arr.length-1) {
-       return cardWithBanner3 + (i===5 ? adSlot("middle") : adSlot("list"));
+       return card + (i===5 ? adSlot("middle") : adSlot("list"));
      }
-     return cardWithBanner3;
+      return card;
    }).join("");
    $('cards').innerHTML=rendered+adSlot("bottom");
  }
