@@ -19,7 +19,7 @@
     "phone": "+90 212 698 90 50",
     "email": "info@papatya.com.tr",
     "website": "https://papatya.com.tr/tr",
-    "profile": "",
+    "profile": "https://bridgeturkey.rs/",
     "note": "Resmî web sitesine göre sandalye, masa, sedir, kanepe ve ticari mekân mobilyaları üreticisi. İletişim bilgileri resmî iletişim sayfasından alınmıştır.",
     "image": "https://papatyaonline.com/image/cache/catalog/DESIGN/Balat-K/Galeri/3-550x550w.jpg"
   },
@@ -31,9 +31,57 @@
     "phone": "+90 (533) 235 58 60",
     "email": "kubaaydinlatma@gmail.com",
     "website": "https://kubaydinlatma.com",
-    "profile": "",
+    "profile": "https://bridgeturkey.rs/",
     "note": "Resmî web sitesine göre sandalye, masa, sedir, kanepe ve ticari mekân mobilyaları üreticisi. İletişim bilgileri resmî iletişim sayfasından alınmıştır.",
     "image": "https://kubaydinlatma.com/wp-content/uploads/2023/06/anvers-mermer-salon-avizesi-d74-c2.webp"
+  },
+    {
+    "name": "BELLA MAİSON AYDINLATMA",
+    "sector": "Aydınlatma Ürünleri",
+    "sector_en": "lighting products",
+    "location": "Esentepe Mahallesi Ecza Sokak Safter İş Merkezi No:6/1 D:2 34394 Şişli/İstanbul",
+    "phone": "+90 531 261 38 55",
+    "email": "info@bellamaison.com",
+    "website": "https://www.bellamaison.com/",
+    "profile": "https://bridgeturkey.rs/",
+    "note": "Resmî web sitesine göre sandalye, masa, sedir, kanepe ve ticari mekân mobilyaları üreticisi. İletişim bilgileri resmî iletişim sayfasından alınmıştır.",
+    "image": "https://bmcdn.bellamaison.com/mnresize/753/979/bm-prod/media/catalog/product/8/6/8681790253214_2_1.png"
+  },
+   {
+    "name": "HEKA STORE AYDINLATMA",
+    "sector": "Aydınlatma Ürünleri",
+    "sector_en": "lighting products",
+    "location": "İkitelli OSB, 34490 İstanbul , Türkiye",
+    "phone": "+90 531 700 50 06",
+    "email": "info@hekastore.com",
+    "website": "https://hekastore.com/",
+    "profile": "https://bridgeturkey.rs/",
+    "note": "Resmî web sitesine göre sandalye, masa, sedir, kanepe ve ticari mekân mobilyaları üreticisi. İletişim bilgileri resmî iletişim sayfasından alınmıştır.",
+    "image": "https://hekastore.com/cdn/shop/files/H1W6JMRWRB0-050-6.jpg?v=1766557476&width=1946"
+  },
+   {
+    "name": "YAKAN AYDINLATMA",
+    "sector": "Aydınlatma Ürünleri",
+    "sector_en": "lighting products",
+    "location": "İkitelli OSB,TORMAK SİTESİ C BLOK NO:2 BAŞAKŞEHİR İstanbul , Türkiye",
+    "phone": " +90 (212) 243 30 08",
+    "email": "iinfo@yakanaydinlatma.com.tr",
+    "website": "https://www.yakanaydinlatma.com/",
+    "profile": "https://bridgeturkey.rs/",
+    "note": "Resmî web sitesine göre sandalye, masa, sedir, kanepe ve ticari mekân mobilyaları üreticisi. İletişim bilgileri resmî iletişim sayfasından alınmıştır.",
+    "image": "https://www.yakanaydinlatma.com/yuklemeler/urun/k/5156-aydinlatma-diregi-1_1.png"
+  },
+  {
+    "name": "BAHÇE ÜRÜNLERİ AYDINLATMA",
+    "sector": "Aydınlatma Ürünleri",
+    "sector_en": "lighting products",
+    "location": "İstanbul , Türkiye",
+    "phone": " +90 536 908 88 66",
+    "email": "info@fonelight.com",
+    "website": "https://www.yakanaydinlatma.com/",
+    "profile": "https://bridgeturkey.rs/",
+    "note": "Resmî web sitesine göre sandalye, masa, sedir, kanepe ve ticari mekân mobilyaları üreticisi. İletişim bilgileri resmî iletişim sayfasından alınmıştır.",
+    "image": "https://cdn.myikas.com/images/a4183090-e631-4840-9542-5bbfa67f982a/096f6120-f8fc-490d-9689-ca1a8dbdfe75/1080/velora-75-cm-3000k.webp"
   },
   {
     "name": "LETA SANDALYE",
