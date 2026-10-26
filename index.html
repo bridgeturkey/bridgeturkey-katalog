@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#12345a"><meta name="description" content="BridgeTurkey: Sırbistan ve Balkanlar için Türk iş ortaklarını keşfedin.">
 <link rel="manifest" href="manifest.webmanifest"><title>BridgeTurkey | Firma Kataloğu</title>
 <style>
@@ -19,17 +19,17 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:0 16px 28px
 @media(min-width:960px){.cards{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .whatsapp-float{position:fixed;right:20px;bottom:20px;z-index:9999;display:flex;align-items:center;gap:10px;background:#25D366;color:#073b20;text-decoration:none;padding:13px 18px;border-radius:999px;box-shadow:0 6px 22px #0003;font-weight:850;line-height:1.15;border:2px solid #fff}.whatsapp-float svg{width:25px;height:25px;flex-shrink:0;fill:currentColor}.whatsapp-float:hover{filter:brightness(.97);transform:translateY(-1px)}.whatsapp-float:focus-visible{outline:3px solid #12345a;outline-offset:3px}@media(max-width:520px){.whatsapp-float{right:12px;bottom:12px;padding:12px 15px;font-size:.92rem}}
 </style></head><body>
-<header><div class="wrap"><div class="top"><a class="brand" href="./" aria-label="BridgeTurkey ana sayfa">Bridge<span>Turkey</span></a><div class="top-actions"><a class="join" id="join" href="https://wa.me/905321390958?text=Merhaba%20BridgeTurkey%2C%20katalo%C4%9Fa%20firma%20%C3%BCyeli%C4%9Fi%20i%C3%A7in%20ba%C5%9Fvurmak%20istiyorum.%20%C3%9Cyelik%20%C5%9Fartlar%C4%B1%20hakk%C4%B1nda%20bilgi%20alabilir%20miyim%3F" target="_blank" rel="noopener noreferrer">Üye Ol</a><button class="lang" id="lang">EN · SR</button></div></div><h1 id="headline">Sırbistan ve Balkanlar İçin Türk İş Ortakları</h1><p id="subtitle">Türk üreticileri, tedarikçileri ve hizmet sağlayıcılarını tek yerde bulun. Yeni bağlantılar kurun.</p></div></header>
+<header><div class="wrap"><div class="top"><a class="brand" href="./" aria-label="BridgeTurkey home">Bridge<span>Turkey</span></a><div class="top-actions"><a class="join" id="join" href="https://wa.me/905321390958?text=Merhaba%20BridgeTurkey%2C%20katalo%C4%9Fa%20firma%20%C3%BCyeli%C4%9Fi%20i%C3%A7in%20ba%C5%9Fvurmak%20istiyorum.%20%C3%9Cyelik%20%C5%9Fartlar%C4%B1%20hakk%C4%B1nda%20bilgi%20alabilir%20miyim%3F" target="_blank" rel="noopener noreferrer">Register</a><button class="lang" id="lang">TR · SR</button></div></div><h1 id="headline">Turkish Business Partners for Serbia and the Balkans</h1><p id="subtitle">Find Turkish manufacturers, suppliers and service providers in one place. Build new connections.</p></div></header>
 <div class="wrap" style="padding:16px 16px 0"><a class="wtb-ad-image" href="https://www.wtb.com.tr/tr/" target="_blank" rel="noopener noreferrer" aria-label="WTBCompany projelerini incele"><img src="WhatsApp%20Image%202026-10-24%20at%2009.48.36.jpeg" alt="WTBCompany — Otel ve ticari projeler için özel mobilya çözümleri" loading="eager"></a></div>
-<main class="wrap"><div class="filters"><input id="q" type="search" placeholder="Firma, ürün veya şehir ara…"><select id="sector"><option value="">Tüm sektörler</option></select></div><div class="count" id="count"></div><div class="cards" id="cards"></div></main>
-<footer><p id="footnote">Bu katalog BridgeTurkey sitesindeki firma listelerinden oluşturulmuş ilk taslaktır. Yayınlamadan önce firma bilgileri doğrulanmalıdır.</p><a href="https://bridgeturkey.rs/firme/" target="_blank" rel="noopener">BridgeTurkey web sitesi</a></footer>
+<main class="wrap"><div class="filters"><input id="q" type="search" placeholder="Search company, product or city…"><select id="sector"><option value="">All industries</option></select></div><div class="count" id="count"></div><div class="cards" id="cards"></div></main>
+<footer><p id="footnote">Company details should be verified against the relevant company sources.</p><a href="https://bridgeturkey.rs/firme/" target="_blank" rel="noopener">BridgeTurkey web sitesi</a></footer>
 <script>
 const LANGS={
 tr:{join:"Üye Ol",headline:"Sırbistan ve Balkanlar İçin Türk İş Ortakları",subtitle:"Türk üreticileri, tedarikçileri ve hizmet sağlayıcılarını tek yerde bulun. Yeni bağlantılar kurun.",search:"Firma, ürün veya şehir ara…",all:"Tüm sektörler",count:n=>`${n} firma gösteriliyor`,call:"Ara",email:"E-posta",website:"Web sitesi",profile:"BridgeTurkey profili",adKicker:"Sponsorlu tanıtım · WTBCompany",adTitle:"Otel ve Ticari Projeler İçin Özel Mobilya Çözümleri",adText:"Türkiye’den dünyaya proje bazlı mobilya üretimi ve iç mekân çözümleri.",adCategories:"HOTEL · RESTAURANT · COMMERCIAL",adCta:"Projeleri İncele ↗️",listKicker:"Sponsorlu tanıtım",listTitle:"Firmanız burada öne çıksın",listText:"Sektörünüzle ilgilenen ziyaretçilere ulaşmak için reklam alanlarımız hakkında bilgi alın.",empty:"Eşleşen firma bulunamadı.",footnote:"Firma bilgileri ilgili şirket kaynaklarından doğrulanmalıdır."},
 en:{join:"Register",headline:"Turkish Business Partners for Serbia and the Balkans",subtitle:"Find Turkish manufacturers, suppliers and service providers in one place. Build new connections.",search:"Search company, product or city…",all:"All industries",count:n=>`Showing ${n} companies`,call:"Call",email:"Email",website:"Website",profile:"BridgeTurkey profile",adKicker:"Sponsored feature · WTBCompany",adTitle:"Custom Furniture Solutions for Hotels and Commercial Projects",adText:"Project-based furniture manufacturing and interior solutions from Türkiye to the world.",adCategories:"HOTEL · RESTAURANT · COMMERCIAL",adCta:"Explore Projects ↗️",listKicker:"Sponsored promotion",listTitle:"Put your company in the spotlight",listText:"Ask about advertising placements to reach visitors interested in your sector.",empty:"No matching companies found.",footnote:"Company details should be verified against the relevant company sources."},
 sr:{join:"Registracija",headline:"Turski poslovni partneri za Srbiju i Balkan",subtitle:"Pronađite turske proizvođače, dobavljače i pružaoce usluga na jednom mestu. Uspostavite nove kontakte.",search:"Pretražite firmu, proizvod ili grad…",all:"Sve delatnosti",count:n=>`Prikazano kompanija: ${n}`,call:"Pozovi",email:"E-pošta",website:"Veb-sajt",profile:"BridgeTurkey profil",adKicker:"Sponzorisana promocija · WTBCompany",adTitle:"Nameštaj po meri za hotele i poslovne projekte",adText:"Proizvodnja nameštaja po projektu i rešenja enterijera iz Turske za ceo svet.",adCategories:"HOTEL · RESTORAN · POSLOVNI PROSTORI",adCta:"Pogledajte projekte ↗️",listKicker:"Sponzorisana promocija",listTitle:"Istaknite svoju firmu ovde",listText:"Saznajte više o oglasnom prostoru i dođite do posetilaca zainteresovanih za vašu delatnost.",empty:"Nema rezultata pretrage.",footnote:"Podatke o kompanijama treba proveriti na odgovarajućim zvaničnim izvorima."}
 };
-let lang="tr",firms=[];const $=id=>document.getElementById(id);const order=["tr","en","sr"];
+let lang="en",firms=[];const $=id=>document.getElementById(id);const order=["tr","en","sr"];
 fetch("firms.json").then(r=>{if(!r.ok)throw Error("load");return r.json()}).then(d=>{firms=Array.isArray(d)?d:[];populateSectors();render()}).catch(()=>$('cards').innerHTML='<div class="empty">Firma listesi yüklenemedi. / Could not load company list.</div>');
 function tx(){return LANGS[lang]}
 function esc(s){return String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
@@ -43,13 +43,13 @@ function adSlot(position){
  if(middle){
   return `<a class="enuygun-ad" href="https://www.enuygun.com/" target="_blank" rel="noopener noreferrer" aria-label="ENUYGUN 2027 yaz tatili kampanyasını incele"><img src="enuygun-banner-2027.png" alt="ENUYGUN 2027 yaz tatili: uçak bileti, otel, otobüs ve araç kiralama. Hemen incele." loading="lazy"></a>`;
  }
- const title="Reklam Alanı";
- const text="Markanızı Balkanlar'daki potansiyel iş ortaklarına tanıtın.";
- const aria="Reklam alanı";
+ const title="Advertising space";
+ const text="Promote your brand to potential business partners across the Balkans.";
+ const aria="Advertising space";
  return `<section class="ad-slot list-ad bottom-ad" aria-label="${aria}">
-   <div class="ad-copy"><p class="ad-kicker">Sponsorlu tanıtım · 750 TL / 7 gün</p>
+   <div class="ad-copy"><p class="ad-kicker">Sponsored promotion</p>
    <h2 class="ad-title">${title}</h2><p class="ad-text">${text}</p></div>
-   <a class="ad-cta" href="https://wa.me/905321390958?text=Merhaba%20BridgeTurkey%2C%20katalogda%20reklam%20vermek%20istiyorum.%20Reklam%20alanlar%C4%B1%20ve%20fiyatlar%C4%B1%20hakk%C4%B1nda%20bilgi%20alabilir%20miyim%3F" target="_blank" rel="noopener noreferrer">Reklam Verin</a>
+   <a class="ad-cta" href="https://wa.me/905321390958?text=Merhaba%20BridgeTurkey%2C%20katalogda%20reklam%20vermek%20istiyorum.%20Reklam%20alanlar%C4%B1%20ve%20fiyatlar%C4%B1%20hakk%C4%B1nda%20bilgi%20alabilir%20miyim%3F" target="_blank" rel="noopener noreferrer">Advertise</a>
  </section>`;
 }
 function banner3Euroway(){
