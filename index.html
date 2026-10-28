@@ -113,7 +113,7 @@ function renderAds(){
   {type:'image',src:'WhatsApp%20Image%202026-10-24%20at%2009.48.36.jpeg',href:'https://www.wtb.com.tr/tr/',alt:'WTBCompany — Otel ve ticari projeler için özel mobilya çözümleri'},
   {type:'image',src:'enuygun-banner-2027.png',href:'https://www.enuygun.com/',alt:'ENUYGUN — seyahat ve rezervasyon hizmetleri'},
   {type:'image',src:'euroway-banner3.png',href:'https://eurowaylojistik.com/',alt:'Euroway Lojistik — Türkiye’den Avrupa ve Balkanlara lojistik'},
-  ...Array.from({length:7},()=>({type:'placeholder'}))
+  ...Array.from({length:7},(_,i)=>({type:'image',src:'firmaniz-burada-banner.png',href:'https://wa.me/905321390958?text=Merhaba%20BridgeTurkey%2C%20firmam%20reklam%20alan%C4%B1nda%20yer%20als%C4%B1n%20istiyorum.',alt:'Firmanız burada yer alsın — BridgeTurkey reklam başvurusu'}))
  ];
  const slides=$('wtb-slides');
  slides.innerHTML=sponsors.map((a,i)=>a.type==='image'
