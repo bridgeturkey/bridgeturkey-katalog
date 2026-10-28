@@ -899,6 +899,42 @@
     "note": "Profil bağlantısı kullanıcı tarafından sağlandı; adres ve iletişim bilgileri kaynak sayfadan doğrulanmalı.",
     "image": "https://bridgeturkey.rs/wp-content/uploads/2026/05/VITRA-integra-konzolni-bide.webp"
   },
+    {
+    "name": "EGE VİTRİFİYE",
+    "sector": "Yapı malzemeleri ve banyo",
+    "sector_en": "Building materials and bathroom",
+    "location": "Kemalpaşa OSB Mahallesi 513 Sokak Dış Kapı No:291,  İç Kapı No:1 Kemalpaşa / İZMİR",
+    "phone": "+90 (232) 878 68 81",
+    "email": "info@egevitrifiye.com",
+    "website": "https://egevitrifiye.com/",
+    "profile": "https://bridgeturkey.rs/",
+    "note": "",
+    "image": "https://egevitrifiye.com/application/files/5917/7452/7296/lavabo.jpg"
+  },
+     {
+    "name": "KALE VİTRİFİYE",
+    "sector": "Yapı malzemeleri ve banyo",
+    "sector_en": "Building materials and bathroom",
+    "location": "TÜRKİYE",
+    "phone": "+90 532 305 5253",
+    "email": "yatirimci@kaleseramik.com.tr",
+    "website": "https://www.kale.com.tr/urunler/urun-gruplari/banyo-urunleri/vitrifiyeler?srsltid=AYCX9vK0_hJOQ6qBXvJ2PlrntTh5Ngf1yUIX9b77IKLJiQ_IuYXFb-vn",
+    "profile": "https://bridgeturkey.rs/",
+    "note": "",
+    "image": "https://www.kale.com.tr/medium/ProductTree/Image/69dd412f-7111-479e-be4e-eefc2443b235"
+  },
+      {
+    "name": "SERAMİKSAN",
+    "sector": "Yapı malzemeleri ve banyo",
+    "sector_en": "Building materials and bathroom",
+    "location": "Organize Sanayi Bölgesi 45401 Turgutlu Manisa / Türkiye",
+    "phone": "+90 236 313 96 13",
+    "email": "export@seramiksan.com.tr",
+    "website": "https://www.seramiksan.com.tr/ana-sayfa",
+    "profile": "https://bridgeturkey.rs/",
+    "note": "",
+    "image": "https://cdn.seramiksan.com/product-images/939ef9b479c304e4c5f9c96d684a2647-list-webp.webp"
+  },
   {
     "name": "MODALİFE",
     "sector": "Mobilya",
