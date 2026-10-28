@@ -34,12 +34,17 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:0 16px 28px
 (function(){
   var splash=document.getElementById("bt-splash");
   if(!splash)return;
-  window.setTimeout(function(){
-    splash.classList.add("bt-splash-hide");
+
+  if(window.matchMedia("(max-width: 767px)").matches){
     window.setTimeout(function(){
-      if(splash.parentNode)splash.parentNode.removeChild(splash);
-    },280);
-  },2000);
+      splash.classList.add("bt-splash-hide");
+      window.setTimeout(function(){
+        if(splash.parentNode)splash.parentNode.removeChild(splash);
+      },280);
+    },2000);
+  }else{
+    splash.parentNode.removeChild(splash);
+  }
 })();
 </script>
 
