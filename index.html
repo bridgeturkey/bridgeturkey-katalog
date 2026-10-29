@@ -9,10 +9,9 @@
 .wtb-ad-wrap{box-sizing:border-box}
 .wtb-rotator{position:relative;width:100%;aspect-ratio:4/1;overflow:hidden;border-radius:15px;background:#fff;box-shadow:0 5px 18px #19365318;isolation:isolate;touch-action:pan-y}
 .wtb-slides{position:absolute;inset:0}
-.wtb-slide{display:none;position:absolute;inset:0;width:100%;height:100%;overflow:hidden;line-height:0}
-.wtb-slide.active{display:block}
+.wtb-slide{display:block;position:absolute;inset:0;width:100%;height:100%;overflow:hidden;line-height:0;opacity:0;visibility:hidden;z-index:0;pointer-events:none;transition:opacity .55s ease,visibility .55s ease}.wtb-slide.active{opacity:1;visibility:visible;z-index:1;pointer-events:auto}
 .wtb-slide>a{display:block;width:100%;height:100%;line-height:0}
-.wtb-slide img{display:block;width:100%;height:100%;object-fit:fill;object-position:center;background:#102a49}
+.wtb-slide img{display:block;width:100%;height:100%;object-fit:fill;object-position:center;background:#fff}
 .wtb-dots{padding-top:10px;padding-bottom:0}
 .wtb-ad-placeholder{height:100%;width:100%;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:clamp(12px,2vw,26px);background:linear-gradient(115deg,#102a49,#1e5b91);color:#fff;line-height:1.35}
 .wtb-ad-placeholder h3{font-size:clamp(.9rem,2vw,1.5rem);margin:0 0 5px}
@@ -132,16 +131,26 @@ function renderAds(){
   {type:'image',src:'euroway-banner3.png',href:'https://eurowaylojistik.com/',alt:'Euroway Lojistik — Türkiye’den Avrupa ve Balkanlara lojistik'},
   {type:'image',src:'belgrad-mobilya-fuari-2026.png',href:'https://sajam.rs/',alt:'12–16 Kasım 2026 Belgrad Mobilya ve İç Dekorasyon Fuarı — sajam.rs'},
   {type:'image',src:'asal-group-gumruk-lojistik-2026.png',href:'https://asalgroup.com.tr/',alt:'Asal Group — Gümrük müşavirliği, dış ticaret ve lojistik çözümleri'},
+  {type:'image',src:'ihracatta-devlet-destekleri-2026.png',href:'https://ticaret.gov.tr/destekler/ihracat-destekleri',alt:'Ticaret Bakanlığı — İhracatta devlet destekleri'},
+  {type:'image',src:'turkiyenin-balkanlara-ihracati-2026.png',href:'https://www.aa.com.tr/tr/ekonomi/turkiyenin-balkan-ulkelerine-ihracati-ocak-eylul-doneminde-19-milyar-dolara-yaklasti/4081867',alt:'Anadolu Ajansı — Türkiye’nin Balkanlara ihracatı, Ocak–Eylül 2026'},
   ...Array.from({length:7},(_,i)=>({type:'image',src:'firmaniz-burada-banner.png',href:'https://wa.me/905321390958?text=Merhaba%20BridgeTurkey%2C%20firmam%20reklam%20alan%C4%B1nda%20yer%20als%C4%B1n%20istiyorum.',alt:'Firmanız burada yer alsın — BridgeTurkey reklam başvurusu'}))
  ];
  const slides=$('wtb-slides');
  slides.innerHTML=sponsors.map((a,i)=>a.type==='image'
-  ? `<div class="wtb-slide ${i===0?'active':''}" data-wtb-ad="${i}"><a href="${a.href}" target="_blank" rel="noopener noreferrer" aria-label="${a.alt}"><img src="${a.src}" alt="${a.alt}" ${i===0?'loading="eager"':'loading="lazy"'}></a></div>`
+  ? `<div class="wtb-slide ${i===0?'active':''}" data-wtb-ad="${i}"><a href="${a.href}" target="_blank" rel="noopener noreferrer" aria-label="${a.alt}"><img src="${a.src}" alt="${a.alt}" loading="eager" decoding="async"></a></div>`
   : `<div class="wtb-slide ${i===0?'active':''}" data-wtb-ad="${i}"><div class="wtb-ad-placeholder"><div><h3>${t.sponsorTitle}</h3><p>${t.sponsorText}</p></div><a class="cta" href="https://wa.me/905321390958?text=Merhaba%20BridgeTurkey%2C%20katalogda%20reklam%20vermek%20istiyorum.%20Reklam%20alanlar%C4%B1%20hakk%C4%B1nda%20bilgi%20alabilir%20miyim%3F" target="_blank" rel="noopener noreferrer">${t.sponsorCta}</a></div></div>`).join('');
  $('wtb-dots').innerHTML=sponsors.map((a,i)=>`<button class="ad-dot ${i===0?'active':''}" aria-label="Reklam ${i+1}" data-wtb-dot="${i}"></button>`).join('');
  document.querySelectorAll('[data-wtb-dot]').forEach(b=>b.addEventListener('click',()=>showWtbAd(Number(b.dataset.wtbDot))));
- if(adTimer)clearInterval(adTimer);adIndex=0;
- adTimer=setInterval(()=>showWtbAd((adIndex+1)%document.querySelectorAll('.wtb-slide').length),5000);
+ if(adTimer)clearInterval(adTimer);
+ adIndex=0;
+ const imageLoads=[...slides.querySelectorAll('img')].map(img=>img.complete?Promise.resolve():new Promise(resolve=>{
+   img.addEventListener('load',resolve,{once:true});
+   img.addEventListener('error',resolve,{once:true});
+ }));
+ Promise.all(imageLoads).then(()=>{
+   if(adTimer)clearInterval(adTimer);
+   adTimer=setInterval(()=>showWtbAd((adIndex+1)%document.querySelectorAll('.wtb-slide').length),6000);
+ });
 }
 function showWtbAd(i){const slides=[...document.querySelectorAll('.wtb-slide')];if(!slides.length)return;adIndex=((i%slides.length)+slides.length)%slides.length;slides.forEach((s,j)=>s.classList.toggle('active',j===adIndex));document.querySelectorAll('[data-wtb-dot]').forEach((d,j)=>d.classList.toggle('active',j===adIndex))}
 let touchStartX=0;const adBox=$('wtb-rotator');adBox.addEventListener('touchstart',e=>{touchStartX=e.changedTouches[0].clientX},{passive:true});adBox.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-touchStartX;if(Math.abs(dx)>40)showWtbAd(adIndex+(dx<0?1:-1))},{passive:true});adBox.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse')touchStartX=e.clientX});adBox.addEventListener('pointerup',e=>{if(e.pointerType==='mouse'){const dx=e.clientX-touchStartX;if(Math.abs(dx)>60)showWtbAd(adIndex+(dx<0?1:-1))}});
