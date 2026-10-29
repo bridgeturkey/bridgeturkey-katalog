@@ -97,7 +97,8 @@ function sectorOf(f){
  const raw=String(lang==="tr"?f.sector:(lang==="en"?(f.sector_en||f.sector):(f.sector_sr||f.sector_en||f.sector))||"").toLocaleLowerCase();
  const name=String(f.name||"").toLocaleLowerCase();
  let key="";
- if(/mobily|furniture|home products|office furniture|buro|büro|dekorasyon|hotel.*restaurant.*cafe furniture|otel.*restoran.*kafe mobilya/.test(raw)) key="furniture";
+ if(/endüstriyel mutfak ekipmanları|industrial kitchen equipment|oprema za industrijske kuhinje/.test(raw)) key="industrialKitchen";
+ else if(/mobily|furniture|home products|office furniture|buro|büro|dekorasyon|hotel.*restaurant.*cafe furniture|otel.*restoran.*kafe mobilya/.test(raw)) key="furniture";
  else if(/construction|building|inşaat|yapı|donanım|furnishing|hardware|kapı|banyo/.test(raw)) key="construction";
  else if(/lighting|aydınlatma|electric|elektrik/.test(raw)) key="lighting";
  else if(/electronics|electronic|technology|teknoloji|ev alet|home appliance/.test(raw)) key="electronics";
@@ -110,9 +111,9 @@ function sectorOf(f){
  else if(/plastic|plastik|household|ev gereç/.test(raw)) key="plastic";
  else key="other";
  const names={
- tr:{furniture:"Mobilya ve Dekorasyon",construction:"İnşaat ve Yapı",lighting:"Aydınlatma ve Elektrik",electronics:"Elektronik ve Ev Aletleri",food:"Gıda ve İçecek",textile:"Tekstil ve Giyim",machinery:"Makine ve Sanayi",automotive:"Otomotiv ve Ulaşım",outdoor:"Tente ve Dış Mekân",advertising:"Reklam ve Tabela",plastic:"Plastik ve Ev Gereçleri",other:"Diğer Sektörler"},
- en:{furniture:"Furniture & Decoration",construction:"Construction & Building",lighting:"Lighting & Electrical",electronics:"Electronics & Home Appliances",food:"Food & Beverage",textile:"Textiles & Clothing",machinery:"Machinery & Industry",automotive:"Automotive & Transport",outdoor:"Awnings & Outdoor",advertising:"Advertising & Signage",plastic:"Plastic & Household Goods",other:"Other Industries"},
- sr:{furniture:"Nameštaj i dekoracija",construction:"Građevinarstvo",lighting:"Rasveta i elektrika",electronics:"Elektronika i kućni aparati",food:"Hrana i piće",textile:"Tekstil i odeća",machinery:"Mašine i industrija",automotive:"Automobilska industrija i transport",outdoor:"Tende i eksterijer",advertising:"Reklame i natpisi",plastic:"Plastika i kućni proizvodi",other:"Ostale delatnosti"}
+ tr:{industrialKitchen:"Endüstriyel Mutfak Ekipmanları",furniture:"Mobilya ve Dekorasyon",construction:"İnşaat ve Yapı",lighting:"Aydınlatma ve Elektrik",electronics:"Elektronik ve Ev Aletleri",food:"Gıda ve İçecek",textile:"Tekstil ve Giyim",machinery:"Makine ve Sanayi",automotive:"Otomotiv ve Ulaşım",outdoor:"Tente ve Dış Mekân",advertising:"Reklam ve Tabela",plastic:"Plastik ve Ev Gereçleri",other:"Diğer Sektörler"},
+ en:{industrialKitchen:"Industrial Kitchen Equipment",furniture:"Furniture & Decoration",construction:"Construction & Building",lighting:"Lighting & Electrical",electronics:"Electronics & Home Appliances",food:"Food & Beverage",textile:"Textiles & Clothing",machinery:"Machinery & Industry",automotive:"Automotive & Transport",outdoor:"Awnings & Outdoor",advertising:"Advertising & Signage",plastic:"Plastic & Household Goods",other:"Other Industries"},
+ sr:{industrialKitchen:"Oprema za industrijske kuhinje",furniture:"Nameštaj i dekoracija",construction:"Građevinarstvo",lighting:"Rasveta i elektrika",electronics:"Elektronika i kućni aparati",food:"Hrana i piće",textile:"Tekstil i odeća",machinery:"Mašine i industrija",automotive:"Automobilska industrija i transport",outdoor:"Tende i eksterijer",advertising:"Reklame i natpisi",plastic:"Plastika i kućni proizvodi",other:"Ostale delatnosti"}
  };
  return names[lang][key];
 }
@@ -155,7 +156,7 @@ function renderAds(){
 function showWtbAd(i){const slides=[...document.querySelectorAll('.wtb-slide')];if(!slides.length)return;adIndex=((i%slides.length)+slides.length)%slides.length;slides.forEach((s,j)=>s.classList.toggle('active',j===adIndex));document.querySelectorAll('[data-wtb-dot]').forEach((d,j)=>d.classList.toggle('active',j===adIndex))}
 let touchStartX=0;const adBox=$('wtb-rotator');adBox.addEventListener('touchstart',e=>{touchStartX=e.changedTouches[0].clientX},{passive:true});adBox.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-touchStartX;if(Math.abs(dx)>40)showWtbAd(adIndex+(dx<0?1:-1))},{passive:true});adBox.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse')touchStartX=e.clientX});adBox.addEventListener('pointerup',e=>{if(e.pointerType==='mouse'){const dx=e.clientX-touchStartX;if(Math.abs(dx)>60)showWtbAd(adIndex+(dx<0?1:-1))}});
 function applyLanguage(){const t=tx();document.documentElement.lang=lang;$('join').textContent=t.join;$('headline').textContent=t.headline;$('subtitle').textContent=t.subtitle;$('q').placeholder=t.search;$('lang').textContent=order[(order.indexOf(lang)+1)%3].toUpperCase()+' · '+order[(order.indexOf(lang)+2)%3].toUpperCase();$('footnote').textContent=t.footnote;populateSectors();renderFeatured();renderCategories();renderPromoStats();renderCards();renderAds()}
-fetch('./firms.json').then(r=>{if(!r.ok)throw Error('load');return r.json()}).then(d=>{firms=Array.isArray(d)?d:[];applyLanguage()}).catch(()=>{$('cards').innerHTML='<div class="empty">Firma listesi yüklenemedi. / Could not load company list.</div>'});
+fetch('./firms.json').then(r=>{if(!r.ok)throw Error('load');return r.json()}).then(d=>{firms=Array.isArray(d)?d:[];applyLanguage()}).catch(()=>$('cards').innerHTML='<div class="empty">Firma listesi yüklenemedi. / Could not load company list.</div>');
 $('q').addEventListener('input',()=>{showAllFirms=false;selectedSector='';$('sector').value='';renderCategories();renderCards()});$('sector').addEventListener('change',()=>{showAllFirms=false;selectedSector=$('sector').value;renderCategories();renderCards();if(selectedSector)setTimeout(()=>$('firms-section').scrollIntoView({behavior:'smooth',block:'start'}),50)});$('lang').addEventListener('click',()=>{lang=order[(order.indexOf(lang)+1)%3];selectedSector='';applyLanguage()});
 if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script>
