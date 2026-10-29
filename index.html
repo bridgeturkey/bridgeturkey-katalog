@@ -9,9 +9,10 @@
 .wtb-ad-wrap{box-sizing:border-box}
 .wtb-rotator{position:relative;width:100%;aspect-ratio:4/1;overflow:hidden;border-radius:15px;background:#fff;box-shadow:0 5px 18px #19365318;isolation:isolate;touch-action:pan-y}
 .wtb-slides{position:absolute;inset:0}
-.wtb-slide{display:block;position:absolute;inset:0;width:100%;height:100%;overflow:hidden;line-height:0;opacity:0;visibility:hidden;z-index:0;pointer-events:none;transition:opacity .55s ease,visibility .55s ease}.wtb-slide.active{opacity:1;visibility:visible;z-index:1;pointer-events:auto}
+.wtb-slide{display:none;position:absolute;inset:0;width:100%;height:100%;overflow:hidden;line-height:0}
+.wtb-slide.active{display:block}
 .wtb-slide>a{display:block;width:100%;height:100%;line-height:0}
-.wtb-slide img{display:block;width:100%;height:100%;object-fit:fill;object-position:center;background:#fff}
+.wtb-slide img{display:block;width:100%;height:100%;object-fit:fill;object-position:center;background:#102a49}
 .wtb-dots{padding-top:10px;padding-bottom:0}
 .wtb-ad-placeholder{height:100%;width:100%;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:clamp(12px,2vw,26px);background:linear-gradient(115deg,#102a49,#1e5b91);color:#fff;line-height:1.35}
 .wtb-ad-placeholder h3{font-size:clamp(.9rem,2vw,1.5rem);margin:0 0 5px}
@@ -97,7 +98,8 @@ function sectorOf(f){
  const raw=String(lang==="tr"?f.sector:(lang==="en"?(f.sector_en||f.sector):(f.sector_sr||f.sector_en||f.sector))||"").toLocaleLowerCase();
  const name=String(f.name||"").toLocaleLowerCase();
  let key="";
- if(/mobily|furniture|home products|office furniture|buro|büro|dekorasyon|hotel.*restaurant.*cafe furniture|otel.*restoran.*kafe mobilya/.test(raw)) key="furniture";
+ if(/endüstriyel mutfak ekipmanları|industrial kitchen equipment|oprema za industrijske kuhinje/.test(raw)) key="industrialKitchen";
+ else if(/mobily|furniture|home products|office furniture|buro|büro|dekorasyon|hotel.*restaurant.*cafe furniture|otel.*restoran.*kafe mobilya/.test(raw)) key="furniture";
  else if(/construction|building|inşaat|yapı|donanım|furnishing|hardware|kapı|banyo/.test(raw)) key="construction";
  else if(/lighting|aydınlatma|electric|elektrik/.test(raw)) key="lighting";
  else if(/electronics|electronic|technology|teknoloji|ev alet|home appliance/.test(raw)) key="electronics";
@@ -110,9 +112,9 @@ function sectorOf(f){
  else if(/plastic|plastik|household|ev gereç/.test(raw)) key="plastic";
  else key="other";
  const names={
- tr:{furniture:"Mobilya ve Dekorasyon",construction:"İnşaat ve Yapı",lighting:"Aydınlatma ve Elektrik",electronics:"Elektronik ve Ev Aletleri",food:"Gıda ve İçecek",textile:"Tekstil ve Giyim",machinery:"Makine ve Sanayi",automotive:"Otomotiv ve Ulaşım",outdoor:"Tente ve Dış Mekân",advertising:"Reklam ve Tabela",plastic:"Plastik ve Ev Gereçleri",other:"Diğer Sektörler"},
- en:{furniture:"Furniture & Decoration",construction:"Construction & Building",lighting:"Lighting & Electrical",electronics:"Electronics & Home Appliances",food:"Food & Beverage",textile:"Textiles & Clothing",machinery:"Machinery & Industry",automotive:"Automotive & Transport",outdoor:"Awnings & Outdoor",advertising:"Advertising & Signage",plastic:"Plastic & Household Goods",other:"Other Industries"},
- sr:{furniture:"Nameštaj i dekoracija",construction:"Građevinarstvo",lighting:"Rasveta i elektrika",electronics:"Elektronika i kućni aparati",food:"Hrana i piće",textile:"Tekstil i odeća",machinery:"Mašine i industrija",automotive:"Automobilska industrija i transport",outdoor:"Tende i eksterijer",advertising:"Reklame i natpisi",plastic:"Plastika i kućni proizvodi",other:"Ostale delatnosti"}
+ tr:{industrialKitchen:"Endüstriyel Mutfak Ekipmanları",furniture:"Mobilya ve Dekorasyon",construction:"İnşaat ve Yapı",lighting:"Aydınlatma ve Elektrik",electronics:"Elektronik ve Ev Aletleri",food:"Gıda ve İçecek",textile:"Tekstil ve Giyim",machinery:"Makine ve Sanayi",automotive:"Otomotiv ve Ulaşım",outdoor:"Tente ve Dış Mekân",advertising:"Reklam ve Tabela",plastic:"Plastik ve Ev Gereçleri",other:"Diğer Sektörler"},
+ en:{industrialKitchen:"Industrial Kitchen Equipment",furniture:"Furniture & Decoration",construction:"Construction & Building",lighting:"Lighting & Electrical",electronics:"Electronics & Home Appliances",food:"Food & Beverage",textile:"Textiles & Clothing",machinery:"Machinery & Industry",automotive:"Automotive & Transport",outdoor:"Awnings & Outdoor",advertising:"Advertising & Signage",plastic:"Plastic & Household Goods",other:"Other Industries"},
+ sr:{industrialKitchen:"Oprema za industrijske kuhinje",furniture:"Nameštaj i dekoracija",construction:"Građevinarstvo",lighting:"Rasveta i elektrika",electronics:"Elektronika i kućni aparati",food:"Hrana i piće",textile:"Tekstil i odeća",machinery:"Mašine i industrija",automotive:"Automobilska industrija i transport",outdoor:"Tende i eksterijer",advertising:"Reklame i natpisi",plastic:"Plastika i kućni proizvodi",other:"Ostale delatnosti"}
  };
  return names[lang][key];
 }
@@ -137,20 +139,12 @@ function renderAds(){
  ];
  const slides=$('wtb-slides');
  slides.innerHTML=sponsors.map((a,i)=>a.type==='image'
-  ? `<div class="wtb-slide ${i===0?'active':''}" data-wtb-ad="${i}"><a href="${a.href}" target="_blank" rel="noopener noreferrer" aria-label="${a.alt}"><img src="${a.src}" alt="${a.alt}" loading="eager" decoding="async"></a></div>`
+  ? `<div class="wtb-slide ${i===0?'active':''}" data-wtb-ad="${i}"><a href="${a.href}" target="_blank" rel="noopener noreferrer" aria-label="${a.alt}"><img src="${a.src}" alt="${a.alt}" ${i===0?'loading="eager"':'loading="lazy"'}></a></div>`
   : `<div class="wtb-slide ${i===0?'active':''}" data-wtb-ad="${i}"><div class="wtb-ad-placeholder"><div><h3>${t.sponsorTitle}</h3><p>${t.sponsorText}</p></div><a class="cta" href="https://wa.me/905321390958?text=Merhaba%20BridgeTurkey%2C%20katalogda%20reklam%20vermek%20istiyorum.%20Reklam%20alanlar%C4%B1%20hakk%C4%B1nda%20bilgi%20alabilir%20miyim%3F" target="_blank" rel="noopener noreferrer">${t.sponsorCta}</a></div></div>`).join('');
  $('wtb-dots').innerHTML=sponsors.map((a,i)=>`<button class="ad-dot ${i===0?'active':''}" aria-label="Reklam ${i+1}" data-wtb-dot="${i}"></button>`).join('');
  document.querySelectorAll('[data-wtb-dot]').forEach(b=>b.addEventListener('click',()=>showWtbAd(Number(b.dataset.wtbDot))));
- if(adTimer)clearInterval(adTimer);
- adIndex=0;
- const imageLoads=[...slides.querySelectorAll('img')].map(img=>img.complete?Promise.resolve():new Promise(resolve=>{
-   img.addEventListener('load',resolve,{once:true});
-   img.addEventListener('error',resolve,{once:true});
- }));
- Promise.all(imageLoads).then(()=>{
-   if(adTimer)clearInterval(adTimer);
-   adTimer=setInterval(()=>showWtbAd((adIndex+1)%document.querySelectorAll('.wtb-slide').length),6000);
- });
+ if(adTimer)clearInterval(adTimer);adIndex=0;
+ adTimer=setInterval(()=>showWtbAd((adIndex+1)%document.querySelectorAll('.wtb-slide').length),5000);
 }
 function showWtbAd(i){const slides=[...document.querySelectorAll('.wtb-slide')];if(!slides.length)return;adIndex=((i%slides.length)+slides.length)%slides.length;slides.forEach((s,j)=>s.classList.toggle('active',j===adIndex));document.querySelectorAll('[data-wtb-dot]').forEach((d,j)=>d.classList.toggle('active',j===adIndex))}
 let touchStartX=0;const adBox=$('wtb-rotator');adBox.addEventListener('touchstart',e=>{touchStartX=e.changedTouches[0].clientX},{passive:true});adBox.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-touchStartX;if(Math.abs(dx)>40)showWtbAd(adIndex+(dx<0?1:-1))},{passive:true});adBox.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse')touchStartX=e.clientX});adBox.addEventListener('pointerup',e=>{if(e.pointerType==='mouse'){const dx=e.clientX-touchStartX;if(Math.abs(dx)>60)showWtbAd(adIndex+(dx<0?1:-1))}});
