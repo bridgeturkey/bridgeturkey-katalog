@@ -94,31 +94,34 @@ const order=["tr","en","sr"];let lang="tr",firms=[],selectedSector="",showAllFir
 function esc(s){return String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 function safeUrl(s){try{const u=new URL(String(s||""));return ["http:","https:"].includes(u.protocol)?u.href:""}catch{return ""}}
 function sectorOf(f){
- const raw=String(lang==="tr"?f.sector:(lang==="en"?(f.sector_en||f.sector):(f.sector_sr||f.sector_en||f.sector))||"").toLocaleLowerCase();
- const name=String(f.name||"").toLocaleLowerCase();
- let key="";
- if(/endüstriyel mutfak ekipmanları|industrial kitchen equipment|oprema za industrijske kuhinje/.test(raw)) key="industrialKitchen";
- else if(/(^|\b)kapı(lar)?\b|\bdoors?\b|\bvrata\b/.test(raw)) key="doors";
- else if(/mobily|furniture|home products|office furniture|buro|büro|dekorasyon|hotel.*restaurant.*cafe furniture|otel.*restoran.*kafe mobilya/.test(raw)) key="furniture";
- else if(/construction|building|inşaat|yapı|donanım|furnishing|hardware|kapı|banyo/.test(raw)) key="construction";
- else if(/lighting|aydınlatma|electric|elektrik/.test(raw)) key="lighting";
- else if(/electronics|electronic|technology|teknoloji|ev alet|home appliance/.test(raw)) key="electronics";
- else if(/food|gıda|yiyecek|içecek|beverage|baharat|chocolate|çikolata|spice/.test(raw)) key="food";
- else if(/textile|tekstil|clothing|giyim|apparel/.test(raw)) key="textile";
- else if(/machinery|machine|makine|sanayi/.test(raw)) key="machinery";
- else if(/automotive|transport|otomotiv|ulaşım|vehicle/.test(raw)) key="automotive";
- else if(/awning|tente|outdoor/.test(raw)) key="outdoor";
- else if(/advertising|signage|reklam|tabela/.test(raw)) key="advertising";
- else if(/plastic|plastik|household|ev gereç/.test(raw)) key="plastic";
- else key="other";
+ const norm = v => String(v || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase("tr-TR");
+ const raw = norm(lang === "tr" ? f.sector : (lang === "en" ? (f.sector_en || f.sector) : (f.sector_sr || f.sector_en || f.sector)));
+ const name = norm(f.name);
+ const sectorText = norm([f.sector, f.sector_en, f.sector_sr].filter(Boolean).join(" "));
+ let key = "";
+ // Match explicit sector values first, before broader categories like construction or furniture.
+ if (/endustriyel mutfak ekipmanlari|industrial kitchen equipment|oprema za industrijske kuhinje/.test(sectorText)) key = "industrialKitchen";
+ else if (/\bkapi(lar)?\b|\bdoors?\b|\bvrata\b|\bvratima\b/.test(sectorText) || /\bkapi(lar)?\b|\bdoors?\b|\bvrata\b/.test(name)) key = "doors";
+ else if (/mobily|furniture|home products|office furniture|buro|dekorasyon|hotel.*restaurant.*cafe furniture|otel.*restoran.*kafe mobilya/.test(raw)) key = "furniture";
+ else if (/construction|building|insaat|yapi|donanim|furnishing|hardware|banyo/.test(sectorText)) key = "construction";
+ else if (/lighting|aydinlatma|electric|elektrik/.test(raw)) key = "lighting";
+ else if (/electronics|electronic|technology|teknoloji|ev alet|home appliance/.test(raw)) key = "electronics";
+ else if (/food|gida|yiyecek|icecek|beverage|baharat|chocolate|cikolata|spice/.test(raw)) key = "food";
+ else if (/textile|tekstil|clothing|giyim|apparel/.test(raw)) key = "textile";
+ else if (/machinery|machine|makine|sanayi/.test(raw)) key = "machinery";
+ else if (/automotive|transport|otomotiv|ulasim|vehicle/.test(raw)) key = "automotive";
+ else if (/awning|tente|outdoor/.test(raw)) key = "outdoor";
+ else if (/advertising|signage|reklam|tabela/.test(raw)) key = "advertising";
+ else if (/plastic|plastik|household|ev gerec/.test(raw)) key = "plastic";
+ else key = "other";
  const names={
  tr:{industrialKitchen:"Endüstriyel Mutfak Ekipmanları",doors:"Kapı",furniture:"Mobilya ve Dekorasyon",construction:"İnşaat ve Yapı",lighting:"Aydınlatma ve Elektrik",electronics:"Elektronik ve Ev Aletleri",food:"Gıda ve İçecek",textile:"Tekstil ve Giyim",machinery:"Makine ve Sanayi",automotive:"Otomotiv ve Ulaşım",outdoor:"Tente ve Dış Mekân",advertising:"Reklam ve Tabela",plastic:"Plastik ve Ev Gereçleri",other:"Diğer Sektörler"},
  en:{industrialKitchen:"Industrial Kitchen Equipment",doors:"Doors",furniture:"Furniture & Decoration",construction:"Construction & Building",lighting:"Lighting & Electrical",electronics:"Electronics & Home Appliances",food:"Food & Beverage",textile:"Textiles & Clothing",machinery:"Machinery & Industry",automotive:"Automotive & Transport",outdoor:"Awnings & Outdoor",advertising:"Advertising & Signage",plastic:"Plastic & Household Goods",other:"Other Industries"},
  sr:{industrialKitchen:"Oprema za industrijske kuhinje",doors:"Vrata",furniture:"Nameštaj i dekoracija",construction:"Građevinarstvo",lighting:"Rasveta i elektrika",electronics:"Elektronika i kućni aparati",food:"Hrana i piće",textile:"Tekstil i odeća",machinery:"Mašine i industrija",automotive:"Automobilska industrija i transport",outdoor:"Tende i eksterijer",advertising:"Reklame i natpisi",plastic:"Plastika i kućni proizvodi",other:"Ostale delatnosti"}
  };
- return names[lang][key];
+ return names[lang][key] || names.tr.other;
 }
-function populateSectors(){const locale=lang==="tr"?"tr-TR":lang==="sr"?"sr-RS":"en-US";const collator=new Intl.Collator(locale,{sensitivity:"base",numeric:true});const vals=[...new Set(firms.map(f=>sectorOf(f)).filter(Boolean))].sort((a,b)=>collator.compare(a,b));$('sector').innerHTML=`<option value="">${tx().all}</option>`+vals.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join("");$('sector').value=selectedSector}
+function populateSectors(){const locale=lang==="tr"?"tr-TR":lang==="sr"?"sr-RS":"en-US";const collator=new Intl.Collator(locale,{sensitivity:"base",numeric:true});const names=lang==="tr"?{doors:"Kapı",industrialKitchen:"Endüstriyel Mutfak Ekipmanları"}:lang==="sr"?{doors:"Vrata",industrialKitchen:"Oprema za industrijske kuhinje"}:{doors:"Doors",industrialKitchen:"Industrial Kitchen Equipment"};const vals=[...new Set([...firms.map(f=>sectorOf(f)).filter(Boolean),names.doors,names.industrialKitchen])].sort((a,b)=>collator.compare(a,b));$('sector').innerHTML=`<option value="">${tx().all}</option>`+vals.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join("");$('sector').value=selectedSector}
 function visibleFirms(){const q=$('q').value.toLocaleLowerCase(lang==="tr"?"tr":"en"),s=$('sector').value;return firms.filter(f=>(!s||sectorOf(f)===s)&&[f.name,f.sector,f.sector_en,f.sector_sr,f.location].join(" ").toLocaleLowerCase(lang==="tr"?"tr":"en").includes(q))}
 function companyImage(f,cls){const u=safeUrl(f.image);return u?`<img class="${cls}" src="${esc(u)}" alt="${esc(f.name)}" loading="lazy" onerror="this.outerHTML='<div class=&quot;photo-placeholder&quot;>BRIDGETURKEY</div>'">`:`<div class="${cls==='company-photo'?'photo-placeholder':'featured-placeholder'}" aria-hidden="true">BT</div>`}
 function renderFeatured(){const t=tx();const wanted=[{match:['CARIS DESIGN']},{match:['WTB COMPANY']},{match:['KARAGÖZLER','KARAGÖZ TEKSTİL'],label:'KARAGÖZLER'},{match:['ASİL REKLAM']},{match:['KUBA AYDINLATMA']},{match:['GÜRÜN TENTE']},{match:['GEBERİT']},{match:['ÖZGÖRKÖY FEAST','ÖZGÖRKÖY']},{match:['HARMAN LİFE STYLE']}];const norm=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleUpperCase('tr-TR').replace(/İ/g,'I').trim();const candidates=wanted.map(w=>{const f=firms.find(x=>w.match.some(n=>norm(x.name)===norm(n)));return f?{...f,featuredLabel:w.label||f.name}:null}).filter(Boolean);$('featured').innerHTML=candidates.map(f=>`<a class="featured-card" href="#firms-section" data-featured-sector="${esc(sectorOf(f)||'')}" title="${esc(f.name)}">${companyImage(f,'featured-image')}<strong>${esc(f.featuredLabel||f.name)}</strong><small>${esc(sectorOf(f)||'')}</small></a>`).join("");$('featured-title').textContent=t.featured;$('show-all').textContent=t.showAll;$('show-all').onclick=()=>{showAllFirms=true;selectedSector="";$('sector').value="";$('q').value="";renderCards();$('firms-section').hidden=false;$('firms-section').scrollIntoView({behavior:'smooth',block:'start'})};document.querySelectorAll('[data-featured-sector]').forEach(el=>el.addEventListener('click',()=>{const s=el.dataset.featuredSector;if(s){showAllFirms=false;selectedSector=s;populateSectors();$('q').value="";renderCards()}}))}
