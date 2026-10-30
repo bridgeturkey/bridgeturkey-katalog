@@ -397,8 +397,8 @@
   },
   {
     "name": "WTB COMPANY",
-    "sector": "İnşaat ve yapı",
-    "sector_en": "Construction and building",
+    "sector": "Otel, restoran ve kafe mobilyaları",
+    "sector_en": "Hotel, restaurant and cafe furniture",
     "location": "Atatürk Mah. Güner Sok. No:1/1B, Teknik Yapı Metropark Sitesi B1 Blok Kat:17 Ofis 141, Küçükçekmece, İstanbul, Türkiye",
     "phone": "+90 552 619 1034",
     "email": "info@wtb.com.tr",
@@ -406,6 +406,18 @@
     "profile": "https://bridgeturkey.rs/listing/wtbcompany/",
     "note": "Resmî iletişim sayfasından doğrulandı.",
     "image": "https://bridgeturkey.rs/wp-content/uploads/2026/10/wtb-company-hotelski-namestaj-1200x800.jpg"
+  },
+  {
+    "name": "ATERSTORE İNŞAAT MALZEMELERİ",
+    "sector": "İnşaat ve yapı",
+    "sector_en": "Construction and building",
+    "location": "ADELET MH.1600/A NO:4 BAYRAKLI İZMİR",
+    "phone": "+90 232 469 0 999",
+    "email": "info@aterstore.com.tr",
+    "website": "https://www.aterstore.com.tr/",
+    "profile": "https://bridgeturkey.rs/",
+    "note": "Resmî iletişim sayfasından doğrulandı.",
+    "image": "https://aterstore.com.tr/upload/2/banner6.jpg"
   },
   {
     "name": "ASİL REKLAM",
