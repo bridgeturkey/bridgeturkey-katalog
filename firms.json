@@ -805,8 +805,8 @@
   },
   {
     "name": "ASAHŞAP END.MUTFAK EKİPMANLARI",
-    "sector": "Mutfak Ekipmanları",
-    "sector_en": "Kitchen Equipment",
+    "sector": "Endüstriyel Mutfak Ekipmanları",
+    "sector_en": "Industrial Kitchen Equipment",
     "location": "Oğlananası Atatürk Mahallesi Barbaros Caddesi No.13 Kısıkköy Menderes/İzmir",
     "phone": "+90 555 614 60 70",
     "email": "asahsap@hotmail.com",
@@ -1380,9 +1380,9 @@
   },
   {
     "name": "MN MINIBAR",
-    "sector": "Otel ekipmanları / minibar",
-    "sector_en": "Hotel equipment / minibars",
-    "sector_sr": "Hotelska oprema / mini-barovi",
+    "sector": "Endüstriyel Mutfak Ekipmanları",
+    "sector_en": "Industrial Kitchen Equipment",
+    "sector_sr": "",
     "location": "Kayseri, Türkiye",
     "phone": "+90 352 504 04 04",
     "email": "info@mnminibar.com",
