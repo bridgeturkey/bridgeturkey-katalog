@@ -1010,8 +1010,8 @@
   },
   {
     "name": "SÜTAŞ",
-    "sector": "Gıda",
-    "sector_en": "Food",
+    "sector": "Yiyecek ve içecek",
+    "sector_en": "Food and beverage",
     "location": "",
     "phone": "444 4 788",
     "email": "tuketici@sutas.com.tr",
@@ -1034,8 +1034,8 @@
   },
   {
     "name": "ÜLKER",
-    "sector": "Gıda",
-    "sector_en": "Food",
+    "sector": "Yiyecek ve içecek",
+    "sector_en": "Food and beverage",
     "location": "Ferah Caddesi, Kısıklı Mahallesi, No. 1 34692 İstanbul – Türkiye",
     "phone": "+90 216 524 29 00",
     "email": "",
