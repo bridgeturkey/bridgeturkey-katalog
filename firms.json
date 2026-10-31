@@ -601,7 +601,7 @@
   },
   {
     "name": "NIA CHOCOLATE",
-     "sector": "Yiyecek ve içecek",
+    "sector": "Yiyecek ve içecek",
     "sector_en": "Food and beverage",
     "location": "Kuşadası, Aydın, Türkiye",
     "phone": "0543 477 15 19",
@@ -1010,8 +1010,8 @@
   },
   {
     "name": "SÜTAŞ",
-    "sector": "Yiyecek ve içecek",
-    "sector_en": "Food and beverage",
+    "sector":"Yiyecek ve içecek",
+    "sector_en":"Food and beverage",
     "location": "",
     "phone": "444 4 788",
     "email": "tuketici@sutas.com.tr",
